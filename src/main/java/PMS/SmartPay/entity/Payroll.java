@@ -29,9 +29,10 @@ public class Payroll {
 	private Employee employee;
 
 	private int month;
-	private int year;
+	private Integer year;
 
 	private Double basicSalary;
+	private Double grossSalary;
 	private int workingDays;
 	private int presentDays;
 	private int absentDays;
