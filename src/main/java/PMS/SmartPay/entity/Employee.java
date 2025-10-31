@@ -8,6 +8,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,9 +21,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name="employees")
+@Table(name = "employees")
 public class Employee {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -29,13 +31,21 @@ public class Employee {
 	private String lastName;
 	private String phone;
 	private String email;
-	private String department;
+
+	@ManyToOne
+	@JoinColumn(name = "department_id")
+	private Department department;
+
 	private String designation;
 	private Double baseSalary;
-	
-    @Column(name = "join_date")
+
+	@Column(name = "join_date")
 	private String joinDate;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "role_id")
+	private Role role;
+
 	@Enumerated(EnumType.STRING)
 	private EmployeeStatus status;
 }
