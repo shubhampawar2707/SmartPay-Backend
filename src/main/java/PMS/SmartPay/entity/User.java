@@ -1,6 +1,7 @@
 package PMS.SmartPay.entity;
 
 
+import PMS.SmartPay.constants.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,8 +17,10 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	private String userName;
+	private String username;
 	private String password;
-	private String role;	
+	
+	@Enumerated(EnumType.STRING)
+	private RoleType role;	
 	
 }
