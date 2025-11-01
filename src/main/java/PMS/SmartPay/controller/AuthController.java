@@ -1,5 +1,7 @@
 package PMS.SmartPay.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,19 +21,19 @@ public class AuthController {
 
 	@Autowired
 	private AuthService authService;
-	
+
 	@PostMapping("/register")
-	public ResponseEntity<String> registerUser(@RequestBody RegisterRequest req)
-	{
+	public ResponseEntity<String> registerUser(@RequestBody RegisterRequest req) {
 		return ResponseEntity.ok(authService.registerUser(req));
 	}
-	
+
 	@PostMapping("/login")
-	public ResponseEntity<String> loginUser(@RequestBody LoginRequest req)
-	{
-		boolean success=authService.loginUser(req);
-		if (success) return ResponseEntity.ok("Login SuccessFully....!");
-		else return ResponseEntity.status(401).body("Invalid Credentials...!");
+	public ResponseEntity<?> loginUser(@RequestBody LoginRequest req) {
+		try {
+			String token = authService.loginUser(req);
+			return ResponseEntity.ok(Map.of("token", token, "message", "Login successful"));
+		} catch (RuntimeException e) {
+			return ResponseEntity.status(401).body(Map.of("message", "Invalid credentials"));
+		}
 	}
-	
 }
