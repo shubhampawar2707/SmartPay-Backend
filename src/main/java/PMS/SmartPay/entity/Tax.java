@@ -22,9 +22,11 @@ public class Tax {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String name; // e.g., "Income Tax", "Provident Fund", "Professional Tax"
+	private String name;
 	private String description;
 
-	private Double percentage; // e.g., 5.0 for 5%
-	private Boolean isActive = true; // enable or disable
+	private Double percentage;
+	private Boolean isActive = true;
+
+	private java.time.LocalDate createdDate = java.time.LocalDate.now(); // ✅ new field
 }

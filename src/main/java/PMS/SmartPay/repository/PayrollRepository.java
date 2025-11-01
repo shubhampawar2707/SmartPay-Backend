@@ -1,6 +1,8 @@
 package PMS.SmartPay.repository;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,4 +28,21 @@ public interface PayrollRepository extends JpaRepository<Payroll, Long> {
 
 	// Get all payrolls for a specific employee
 	List<Payroll> findByEmployee(Employee employee);
+
+	@Query("SELECT SUM(p.netSalary) FROM Payroll p")
+	BigDecimal sumTotalSalary();
+
+	@Query("SELECT SUM(p.deductions) FROM Payroll p")
+	Double sumTotalDeductions();
+
+	@Query("SELECT FUNCTION('DATE_FORMAT', p.paymentDate, '%Y-%m') AS month, SUM(p.netSalary) "
+			+ "FROM Payroll p GROUP BY FUNCTION('DATE_FORMAT', p.paymentDate, '%Y-%m')")
+	Map<String, BigDecimal> findPayrollByMonth();
+
+	@Query("SELECT SUM(p.bonus) FROM Payroll p")
+	Double sumTotalBonus();
+
+	@Query("SELECT SUM(p.netSalary) FROM Payroll p")
+	Double sumTotalNetSalary();
+
 }
