@@ -29,22 +29,6 @@ public class PayslipController {
 		this.payslipService = payslipService;
 	}
 
-//	@GetMapping("/generate/{empId}/{month}")
-//	public ResponseEntity<InputStreamResource> generatePayslip(@PathVariable Long empId, @PathVariable Integer month) {
-//		try {
-//			var bis = payslipService.generatePayslip(empId, month);
-//
-//			HttpHeaders headers = new HttpHeaders();
-//			headers.add("Content-Disposition", "inline; filename=payslip_" + month + ".pdf");
-//
-//			return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
-//					.body(new InputStreamResource(bis));
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
-//		}
-//	
-
 	@GetMapping("/generate/{empId}/{month}")
 	public ResponseEntity<?> generatePayslip(@PathVariable(required = false) Long empId,
 			@PathVariable(required = false) Integer month) {

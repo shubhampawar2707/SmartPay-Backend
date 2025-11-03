@@ -3,6 +3,9 @@ package PMS.SmartPay.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,6 +19,7 @@ import lombok.Data;
 @Entity
 @Table(name = "role")
 @Data
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Role {
 
 	@Id
@@ -29,6 +33,7 @@ public class Role {
 	private Double baseSalary;
 
 	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Employee> employees = new ArrayList<>();
 
 }
